@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import RoundedButton from '../components/RoundedButton';
 
 const Home = () => {
     return (
@@ -8,17 +9,22 @@ const Home = () => {
                 <Text style={styles.helloText}>Hola,</Text>
                 <Text style={styles.helloText2}>Samuel</Text>
             </View>
-            <Text style={styles.helloText}>Hola,</Text>
+            {/* <Text style={styles.helloText}>Prestamo</Text> */}
             <View style={styles.content}>
                 <View style={styles.card}>
                     <Text style={styles.textSmall}>Cuota actual</Text>
                     <Text style={styles.textBig}>$160.43</Text>
-                    <Text style={styles.textSmall2}>Cuota vence el 5 de Febrero</Text>
+                    <Text style={styles.textSmall2}>Paga antes del 5 de Febrero</Text>
                     <View style={styles.lineBorder}>
                         <Text style={styles.textSmall2}>Te queda por pagar</Text>
                         <Text style={styles.textMedium}>$380.53</Text>
                     </View>
+                    <View style={styles.buttonContainer}>
+                        <RoundedButton onPress={null} text="Pagar" color="#66BB6A" colorText="#fff" />
+                        <RoundedButton onPress={null} text="Ver Detalles" color="#fff" colorText="#66BB6A" />
+                    </View>
                 </View>
+                <Text style={[styles.helloText, { color: '#36454f' }]}>Historial</Text>
             </View>
         </View>
     );
@@ -34,6 +40,10 @@ const styles = {
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
         padding: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
     },
     lineBorder: {
         borderTopColor: '#f0f0f0',
@@ -44,6 +54,7 @@ const styles = {
         paddingTop: 10,
         paddingBottom: 10,
         marginTop: 15,
+        marginBottom: 15,
         justifyContent: 'space-between',
         flexDirection: 'row',
     },
@@ -60,25 +71,24 @@ const styles = {
         paddingBottom: 10,
     },
     textSmall: {
-        fontSize: 12,
-        // fontWeight: 'bold',
+        fontSize: 14,
         color: '#36454f'
     },
     textSmall2: {
-        fontSize: 14,
-        // fontWeight: 'bold',
+        fontSize: 12,
         color: '#36454f',
     },
     textMedium: {
         fontSize: 14,
-        fontWeight: 'bold',
+        fontWeight: '800',
         color: '#66BB6A',
     },
     textBig: {
         fontSize: 32,
-        fontWeight: 'bold',
+        fontWeight: '800',
         color: '#66BB6A',
-        padding: 5
+        paddingBottom: 1,
+        paddingTop: 10
     },
     content: {
         flex: 1,
@@ -87,21 +97,24 @@ const styles = {
     },
     card: {
         backgroundColor: '#fff',
-        borderWidth: 1,
-        borderRadius: 8,
-        borderColor: '#ddd',
+        borderRadius: 10,
         borderBottomWidth: 0,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 1,
+        shadowRadius: 8,
         marginLeft: 5,
         marginRight: 5,
         marginTop: 10,
+        marginBottom: 10,
         padding: 15,
         alignItems: 'left',
         justifyContent: 'center',
+    },
+    buttonContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 };
 
