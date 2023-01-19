@@ -1,57 +1,81 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text } from 'react-native';
+import RoundedButton from '../components/RoundedButton';
+import AppText from '../components/AppText';
 
-const WelcomeScreen = () => {
-    const navigation = useNavigation();
+export default class WelcomeScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: true,
+            isReady: false,
+        }
+    }
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Welcome to the Digital Lending App!</Text>
-            <Text style={styles.message}>
-                Thank you for choosing our app to manage your loans.
-            </Text>
-            <Button
-                title="Continue"
-                onPress={() => {
-                    navigation.navigate('Home');
-                }}
-                buttonStyle={styles.button}
-                titleStyle={styles.buttonTitle}
-            />
-        </View>
-    );
-};
+    // async componentWillMount() {
+    //     await Expo.Font.loadAsync({
+    //         'Poppins': require('../assets/Poppins/Poppins-Black.ttf'),
+    //     });
+    //     this.setState({ isReady: true })
+    // }
+
+    // async componentDidMount() {
+    //     await Font.loadAsync({
+    //         'Poppins': require('../assets/Poppins/Poppins-Black.ttf'),
+    //     });
+    //     this.setState({ isReady: true })
+    // }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <AppText style={styles.title} text='Krece' />
+                    <AppText style={styles.message} text='Pide tu prestamo en 4 simples pasos ->' />
+                </View>
+                <RoundedButton
+                    text="Crear una cuenta"
+                    color="#66BB6A"
+                    colorText="#fff"
+                    onPress={() => {
+                        this.props.navigation.navigate('Signup');
+                    }}
+                />
+                <RoundedButton
+                    text="Ya tengo cuenta"
+                    color="#fff"
+                    colorText="#66BB6A"
+                    onPress={() => {
+                        this.props.navigation.navigate('Login');
+                    }}
+                />
+            </View>
+        )
+    }
+}
 
 const styles = {
     container: {
         flex: 1,
+        backgroundColor: '#fff',
+        paddingHorizontal: 20
+    },
+    content: {
+        height: '75%',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
+        fontFamily: 'Poppins'
     },
     message: {
         fontSize: 18,
-        margin: 20,
+        marginBottom: 10,
+        marginTop: 5,
         textAlign: 'center',
-    },
-    button: {
-        backgroundColor: '#0076FF',
-        borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        marginTop: 20,
-    },
-    buttonTitle: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Avenir'
     },
 };
-
-export default WelcomeScreen;

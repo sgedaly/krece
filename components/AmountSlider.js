@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Slider from '@react-native-community/slider'
+import AppText from '../components/AppText';
 
-const AmountSlider = () => {
-    const [value, setValue] = useState(50);
+
+const AmountSlider = ({ minValue, maxValue, onChange }) => {
+    const [value, setValue] = useState(minValue);
+
+    const handleSlidingComplete = () => {
+        onChange(value)
+    }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>${value}.00</Text>
+            <AppText style={styles.text} text={'$' + value + '.00'} />
             <Slider
                 style={styles.slider}
                 value={value}
                 onValueChange={setValue}
-                minimumValue={50}
-                maximumValue={500}
+                onSlidingComplete={handleSlidingComplete}
+                minimumValue={minValue}
+                maximumValue={maxValue}
                 step={1}
             />
         </View>
