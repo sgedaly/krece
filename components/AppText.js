@@ -22,3 +22,4 @@ const AppText = (props) => {
 }
 
 export default AppText;
+

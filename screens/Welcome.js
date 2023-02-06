@@ -35,7 +35,7 @@ export default class WelcomeScreen extends React.Component {
                 </View>
                 <RoundedButton
                     text="Crear una cuenta"
-                    color="#66BB6A"
+                    color="#1857A3"
                     colorText="#fff"
                     onPress={() => {
                         this.props.navigation.navigate('Signup');
@@ -44,7 +44,7 @@ export default class WelcomeScreen extends React.Component {
                 <RoundedButton
                     text="Ya tengo cuenta"
                     color="#fff"
-                    colorText="#66BB6A"
+                    colorText="#1857A3"
                     onPress={() => {
                         this.props.navigation.navigate('Login');
                     }}

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     selected: {
-        backgroundColor: '#66BB6A',
+        backgroundColor: '#1857A3',
     },
     text: {
         color: 'black',

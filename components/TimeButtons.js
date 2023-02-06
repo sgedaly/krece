@@ -40,13 +40,13 @@ const ThreeButtons = (props) => {
 
     return (
         <View style={styles.buttonView}>
-            <TouchableOpacity onPress={() => enableButton(1)} style={[styles.button, { backgroundColor: button1Disabled ? '#E6E6E3' : '#66BB6A' }]}>
+            <TouchableOpacity onPress={() => enableButton(1)} style={[styles.button, { backgroundColor: button1Disabled ? '#1857A380' : '#1857A3' }]}>
                 <AppText style={styles.text} text={props.text1} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => enableButton(2)} style={[styles.button, { backgroundColor: button2Disabled ? '#E6E6E3' : '#66BB6A' }]}>
+            <TouchableOpacity onPress={() => enableButton(2)} style={[styles.button, { backgroundColor: button2Disabled ? '#1857A380' : '#1857A3' }]}>
                 <AppText style={styles.text} text={props.text2} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => enableButton(3)} style={[styles.button, { backgroundColor: button3Disabled ? '#E6E6E3' : '#66BB6A' }]}>
+            <TouchableOpacity onPress={() => enableButton(3)} style={[styles.button, { backgroundColor: button3Disabled ? '#1857A380' : '#1857A3' }]}>
                 <AppText style={styles.text} text={props.text3} />
             </TouchableOpacity>
         </View>
@@ -71,10 +71,10 @@ const styles = {
         justifyContent: 'center',
     },
     selected: {
-        backgroundColor: '#66BB6A',
+        backgroundColor: '#1857A3',
     },
     text: {
-        color: 'black',
+        color: 'white',
         fontSize: 14,
     },
 }

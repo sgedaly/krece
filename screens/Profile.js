@@ -20,7 +20,7 @@ const styles = {
     },
     header: {
         height: '25%',
-        backgroundColor: '#66BB6A',
+        backgroundColor: '#1857A3',
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
         padding: 20,

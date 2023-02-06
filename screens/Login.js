@@ -61,7 +61,7 @@ export default class Login extends React.Component {
                         value={this.state.password}
                         onChangeText={(password) => this.setState({ password })}
                     />
-                    <RoundedButton onPress={() => { this.checkFields() }} text="Entrar" color="#66BB6A" colorText="#fff" />
+                    <RoundedButton onPress={() => { this.checkFields() }} text="Entrar" color="#1857A3" colorText="#fff" />
                 </View>
             </View>
         )

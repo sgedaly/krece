@@ -34,7 +34,7 @@ const Borrow = () => {
         setTotalAmountToPay(totalAmount)
         setInstallmentAmount((totalAmount / numberOfInstallments).toFixed(2))
         setButtonDisabled(false)
-        setButtonColor('#66BB6A')
+        setButtonColor('#1857A3')
     }
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const Borrow = () => {
         setTotalAmountToPay(totalAmount)
         setInstallmentAmount((totalAmount / numberOfInstallments).toFixed(2))
         setButtonDisabled(false)
-        setButtonColor('#66BB6A')
+        setButtonColor('#1857A3')
     }
     const onButtonsPressedChangeInterestRate = (loanDurationInMonths) => {
         setLoanDurationInMonths(loanDurationInMonths)
@@ -73,7 +73,7 @@ const Borrow = () => {
         setTotalAmountToPay(totalAmount)
         setInstallmentAmount((totalAmount / numberOfInstallments).toFixed(2))
         setButtonDisabled(false)
-        setButtonColor('#66BB6A')
+        setButtonColor('#1857A3')
     }
     const submitLoan = () => {
         Alert.alert(
@@ -81,10 +81,13 @@ const Borrow = () => {
             'Deseas enviar este pedido de prestamo?',
             [
                 { text: 'No', onPress: () => null },
-                { text: 'Si', onPress: () => navigation.navigate('Inicio') }, // TODO: navigate to personal information page
+                { text: 'Si', onPress: () => saveLoan }, // TODO: navigate to personal information page
             ],
             { cancelable: false },
         )
+    }
+    const saveLoan = () => {
+
     }
     return (
         <View style={styles.container}>
@@ -127,7 +130,7 @@ const styles = {
         fontSize: 24,
         fontWeight: 'bold',
         paddingBottom: 15,
-        color: '#66BB6A',
+        color: '#1857A3',
     },
     content: {
         flex: 1,

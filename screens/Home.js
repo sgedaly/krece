@@ -59,8 +59,8 @@ const Home = () => {
                         <AppText style={styles.textMedium} text={'$' + amountLeftToPay} />
                     </View>
                     <View style={styles.buttonContainer}>
-                        <RoundedButton onPress={null} text="Pagar" color="#66BB6A" colorText="#fff" />
-                        <RoundedButton onPress={null} text="Ver Detalles" color="#fff" colorText="#66BB6A" />
+                        <RoundedButton onPress={null} text="Pagar" color="#1857A3" colorText="#fff" />
+                        <RoundedButton onPress={null} text="Ver Detalles" color="#fff" colorText="#1857A3" />
                     </View>
                 </View>
                 <AppText style={[styles.helloText, { color: '#36454f' }]} text='Historial' />
@@ -75,7 +75,7 @@ const styles = {
     },
     header: {
         height: '25%',
-        backgroundColor: '#66BB6A', // 8BC34A, 4CAF50, 9CCC65, A5D6A7
+        backgroundColor: '#1857A3', // 8BC34A, 4CAF50, 9CCC65, A5D6A7
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
         padding: 20,
@@ -124,13 +124,13 @@ const styles = {
     textMedium: {
         fontSize: 14,
         fontWeight: '800',
-        color: '#66BB6A',
+        color: '#1857A3',
         fontFamily: 'Avenir'
     },
     textBig: {
         fontSize: 32,
         fontWeight: '800',
-        color: '#66BB6A',
+        color: '#1857A3',
         paddingBottom: 1,
         paddingTop: 10,
         fontFamily: 'Avenir'
