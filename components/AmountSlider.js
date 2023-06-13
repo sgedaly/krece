@@ -20,7 +20,7 @@ const AmountSlider = ({ minValue, maxValue, onChange }) => {
                 onValueChange={setValue}
                 onSlidingComplete={handleSlidingComplete}
                 minimumValue={minValue}
-                maximumValue={maxValue}
+                maximumValue={parseFloat(maxValue)}
                 step={1}
             />
         </View>
@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
         // marginVertical: 20,
     },
     text: {
-        fontSize: 50,
-        color: '#1857A3',
+        fontSize: 35,
+        color: '#82c7a5',
         textAlign: 'center',
-        marginBottom: 20
+        marginBottom: 10
     },
 });
 

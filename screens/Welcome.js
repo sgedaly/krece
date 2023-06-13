@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import RoundedButton from '../components/RoundedButton';
 import AppText from '../components/AppText';
 
@@ -35,16 +35,16 @@ export default class WelcomeScreen extends React.Component {
                 </View>
                 <RoundedButton
                     text="Crear una cuenta"
-                    color="#1857A3"
-                    colorText="#fff"
+                    color="#82c7a5"
+                    colorText="#1b212c"
                     onPress={() => {
                         this.props.navigation.navigate('Signup');
                     }}
                 />
                 <RoundedButton
                     text="Ya tengo cuenta"
-                    color="#fff"
-                    colorText="#1857A3"
+                    color="#1b212c"
+                    colorText="#82c7a5"
                     onPress={() => {
                         this.props.navigation.navigate('Login');
                     }}
@@ -57,7 +57,7 @@ export default class WelcomeScreen extends React.Component {
 const styles = {
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#1b212c',
         paddingHorizontal: 20
     },
     content: {
@@ -69,13 +69,15 @@ const styles = {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
-        fontFamily: 'Poppins'
+        fontFamily: 'Poppins',
+        color: '#fff'
     },
     message: {
         fontSize: 18,
         marginBottom: 10,
         marginTop: 5,
         textAlign: 'center',
-        fontFamily: 'Avenir'
+        fontFamily: 'Avenir',
+        color: '#fff'
     },
 };

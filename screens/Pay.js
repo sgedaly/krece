@@ -9,11 +9,11 @@ import auth from '../auth';
 
 
 
-const Login = () => {
+const Pay = () => {
     const navigation = useNavigation();
     const [isLoading, setIsLoading] = useState(true);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [selectedPayMethod, setSelectedPayMethod] = useState('');
+    const [confirmationNum, setConfirmationNum] = useState('');
 
     const checkFields = () => {
         if (email !== '' && password !== '') {
@@ -31,24 +31,6 @@ const Login = () => {
         }
     }
 
-    const signInUser = () => {
-        console.log(email)
-        console.log(password)
-        auth.signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                navigation.navigate('Inicio')
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage)
-                // ..
-            });
-    }
-
     return (
         <View style={{ flex: 1, backgroundColor: '#1b212c' }}>
             <View style={styles.header}>
@@ -59,27 +41,52 @@ const Login = () => {
                     >
                         <Ionicons name="ios-arrow-back" size={32} color="#82c7a5" />
                     </TouchableOpacity>
-                    <AppText style={styles.title} text='Hola de nuevo 👋' />
+                    <AppText style={styles.title} text='Pago de cuota' />
                     <Ionicons name="ios-arrow-back" size={32} color="#1b212c" />
                 </View>
             </View>
             <View style={styles.content}>
-                <AppText style={styles.label} text='Email:' />
-                <TextInput
-                    style={styles.textInput}
-                    value={email}
-                    onChangeText={(email) => setEmail(email)}
-                    color={'white'}
-                />
-                <AppText style={styles.label} text='Contraseña:' />
+                <AppText style={styles.label} text='Método de pago' />
+                <View style={styles.container}>
+                    <TouchableOpacity
+                        style={[
+                            styles.option,
+                            selectedPayMethod === 'Zelle' && styles.selectedOption,
+                        ]}
+                        onPress={() => setSelectedPayMethod('Zelle')}
+                    >
+                        <Text style={styles.optionText}>Zelle</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[
+                            styles.option,
+                            selectedPayMethod === 'PagoMóvil' && styles.selectedOption,
+                        ]}
+                        onPress={() => setSelectedPayMethod('PagoMóvil')}
+                    >
+                        <Text style={styles.optionText}>PagoMóvil</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[
+                            styles.option,
+                            selectedPayMethod === 'Efectivo dólares' && styles.selectedOption,
+                        ]}
+                        onPress={() => setSelectedPayMethod('Efectivo dólares')}
+                    >
+                        <Text style={styles.optionText}>Efectivo dólares</Text>
+                    </TouchableOpacity>
+                </View>
+                <AppText style={styles.label} text='Número de confirmación de pago' />
                 <TextInput
                     style={styles.textInput}
                     secureTextEntry={true}
-                    value={password}
-                    onChangeText={(password) => setPassword(password)}
+                    value={confirmationNum}
+                    onChangeText={(confirmationNum) => setConfirmationNum(confirmationNum)}
                     color={'white'}
                 />
-                <RoundedButton onPress={checkFields} text="Entrar" color="#82c7a5" colorText="#1b212c" />
+                <RoundedButton onPress={checkFields} text="Ingresar" color="#82c7a5" colorText="#1b212c" />
             </View>
         </View>
     )
@@ -102,11 +109,11 @@ const styles = StyleSheet.create({
     content: {
         padding: 20,
     },
-    container: {
-        padding: 20,
-        flex: 1,
-        backgroundColor: '#fff',
-    },
+    // container: {
+    //     padding: 20,
+    //     flex: 1,
+    //     backgroundColor: '#fff',
+    // },
     label: {
         fontSize: 16,
         marginBottom: 8,
@@ -126,7 +133,27 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600',
         color: '#fff'
-    }
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    option: {
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5,
+        backgroundColor: 'white',
+    },
+    optionText: {
+        fontSize: 16,
+    },
+    selectedOption: {
+        backgroundColor: 'blue',
+    },
 })
 
-export default Login;
+export default Pay;

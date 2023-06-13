@@ -11,30 +11,42 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [firstName, setFirstName] = useState('');
     const [amountLeftToPay, setAmountLeftToPay] = useState('');
-    const [amountPerInstallment, setAmountPerInstallment] = useState('');
-    const [dateString, setDateString] = useState('');
-    const [loanActive, setLoanActive] = useState(true);
+
+    const [payments, setPayments] = useState([]);
+
+    const formatDate = (timestamp) => {
+        const date = timestamp.toDate(); // Convert Firestore timestamp to JavaScript Date object
+        const month = date.toLocaleDateString('es-ES', { month: 'short' }); // Get the short month name
+        const day = date.getDate(); // Get the day of the month
+        return `${day} de ${month.charAt(0).toUpperCase() + month.slice(1)}`;
+    };
 
     useEffect(() => {
         firestore.collection("Users").doc('gedalysamuel@gmail.com')
-            .onSnapshot(function (doc) {
+            .onSnapshot(async (doc) => {
                 setFirstName(doc.data()['firstName']);
-                if (doc.data()['Loan'] != null) {
-                    setAmountLeftToPay(doc.data()['Loan'].amountLeftToPay.toFixed(2));
-                    setAmountPerInstallment(doc.data()['Loan'].amountPerInstallment.toFixed(2));
-                    var installmentDueDate = new Date(doc.data()['Loan'].installmentDueDate.toDate());
+                if (doc.data()['payments'] != null) {
+                    const paymentDetails = doc.data()['payments'].map((paymentRef) => {
+                        return new Promise((resolve, reject) => {
+                            firestore.collection("Payments").doc(paymentRef).get().then((doc) => {
+                                if (doc.exists) {
+                                    resolve(doc.data())
+                                } else {
+                                    resolve(null)
+                                }
+                            })
+                        })
+                    })
+                    Promise.all(paymentDetails).then((results) => {
+                        setPayments(results)
 
-                    const date = new Date(installmentDueDate);
-                    const options = { month: 'long', day: 'numeric' };
-                    const formatter = new Intl.DateTimeFormat('es-ES', options);
-                    const dateString = formatter.format(date);
-                    setDateString(dateString)
+                    })
                 } else {
-                    setLoanActive(false)
+                    // setLoanActive(false)
                 }
                 setLoading(false)
             })
-    })
+    }, []);
     if (loading) {
         return (
             <View style={styles.loadingContainer}>
@@ -50,20 +62,28 @@ const Home = () => {
                 <AppText style={styles.helloText2} text={firstName} />
             </View>
             <View style={styles.content}>
-                <View style={styles.card}>
-                    <AppText style={styles.textSmall} text='Cuota actual' />
-                    <AppText style={styles.textBig} text={'$' + amountPerInstallment} />
-                    <AppText style={styles.textSmall2} text={'Paga antes del ' + dateString} />
-                    <View style={styles.lineBorder}>
-                        <AppText style={styles.textSmall2} text='Te queda por pagar' />
-                        <AppText style={styles.textMedium} text={'$' + amountLeftToPay} />
+                {payments.length !== 0 ? (<View style={styles.card}>
+                    <AppText style={styles.textSmall} text="Pagos" />
+                    {payments.map((item, index) => (
+                        <View key={index} style={styles.paymentItem}>
+                            <AppText style={styles.textSmall2} text={formatDate(item.dueDate)} />
+                            <AppText style={styles.textSmall2} text={item.paid ? "pagado" : ""} />
+                            <AppText style={styles.textSmall2} text={"$" + item.actualAmount} />
+                        </View>
+                    ))}
+                    <View style={styles.paymentItem}>
+                        <AppText style={styles.textSmall} text="Saldo restante" />
+                        <AppText style={styles.textSmall} text={"$" + 34} />
                     </View>
                     <View style={styles.buttonContainer}>
-                        <RoundedButton onPress={null} text="Pagar" color="#1857A3" colorText="#fff" />
-                        <RoundedButton onPress={null} text="Ver Detalles" color="#fff" colorText="#1857A3" />
+                        <RoundedButton onPress={null} text="Pagar" color="#1b212c" colorText="#82c7a5" />
+                        <RoundedButton onPress={null} text="Ver Detalles" color="#82c7a5" colorText="#1b212c" />
                     </View>
-                </View>
-                <AppText style={[styles.helloText, { color: '#36454f' }]} text='Historial' />
+                </View>) : (
+                    <View style={styles.card}>
+                        <AppText style={styles.textSmall2} text="No tienes celular financiado por Krece. Dirigete a una de nuestras tiendas afiliadas cuando necesites renovar tu celular." />
+                    </View>
+                )}
             </View>
         </View>
     );
@@ -75,7 +95,7 @@ const styles = {
     },
     header: {
         height: '25%',
-        backgroundColor: '#1857A3', // 8BC34A, 4CAF50, 9CCC65, A5D6A7
+        backgroundColor: '#1b212c', // 8BC34A, 4CAF50, 9CCC65, A5D6A7
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
         padding: 20,
@@ -101,7 +121,6 @@ const styles = {
         fontSize: 24,
         color: '#fff',
         paddingLeft: 10,
-        fontFamily: 'Avenir'
     },
     helloText2: {
         fontSize: 24,
@@ -109,39 +128,35 @@ const styles = {
         color: '#fff',
         paddingLeft: 10,
         paddingBottom: 10,
-        fontFamily: 'Avenir'
     },
     textSmall: {
-        fontSize: 14,
-        color: '#36454f',
-        fontFamily: 'Avenir'
+        fontSize: 16,
+        color: '#1b212c',
+        fontWeight: 'bold'
     },
     textSmall2: {
         fontSize: 12,
-        color: '#36454f',
-        fontFamily: 'Avenir'
+        color: '#1b212c',
     },
     textMedium: {
         fontSize: 14,
         fontWeight: '800',
-        color: '#1857A3',
-        fontFamily: 'Avenir'
+        color: '#0145ac',
     },
     textBig: {
         fontSize: 32,
         fontWeight: '800',
-        color: '#1857A3',
+        color: '#0145ac',
         paddingBottom: 1,
         paddingTop: 10,
-        fontFamily: 'Avenir'
     },
     content: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#1b212c',
         padding: 15,
     },
     card: {
-        backgroundColor: '#fff',
+        backgroundColor: '#82c7a5',
         borderRadius: 10,
         borderBottomWidth: 0,
         shadowColor: '#000',
@@ -170,6 +185,14 @@ const styles = {
         fontSize: 18,
         marginTop: 20,
     },
+    paymentItem: {
+        width: '100%',
+        paddingTop: 5,
+        paddingBottom: 10,
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        marginBottom: 10,
+    }
 };
 
 export default Home;
